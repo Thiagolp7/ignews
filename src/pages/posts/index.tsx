@@ -21,7 +21,7 @@ export default function Posts({ posts }: PostsProps){
   return (
     <>
       <Head>
-        <title>Posts | Ignews </title>  
+        <title>Posts | ig.news </title>  
       </Head>   
 
       <main className={styles.container}>
@@ -42,7 +42,7 @@ export default function Posts({ posts }: PostsProps){
 export const getStaticProps: GetStaticProps = async () => {
   const prismic = getPrismicClient()
 
-  const response = await prismic.query([
+  const response = await prismic.query<any>([
     Prismic.predicates.at('document.type', 'posts')
   ], {
     fetch: ['posts.title', 'posts.content'],
