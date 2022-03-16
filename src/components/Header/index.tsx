@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { ActiveLink } from '../ActiveLink'
 import { SingInButton } from '../SingInButton'
 
@@ -11,7 +10,7 @@ export function Header(){
         <img src="/images/logo.svg" alt="logo" />
         <nav>
           <ActiveLink href="/" activeCLass={styles.active}>
-            <a className={styles.active}>Home</a>
+            <a>Home</a>
           </ActiveLink>
           <ActiveLink href="/posts" activeCLass={styles.active}>
             <a>Posts</a>  
