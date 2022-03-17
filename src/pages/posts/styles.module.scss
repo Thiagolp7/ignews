@@ -43,5 +43,9 @@
         color: var(--yellow-500);
       }
     }
+
+    &:last-child {
+      margin-bottom: 5rem;
+    }
   }
 }
