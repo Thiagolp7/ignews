@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from "next"
-import { responseSymbol } from "next/dist/server/web/spec-compliant/fetch-event";
 import { Readable } from 'stream'
 
 import Stripe from "stripe";
@@ -31,7 +30,7 @@ const relevantEvents = new Set([
   'checkout.session.completed'
 ])
 
-export default async (req: NextApiRequest, res: NextApiResponse) =>{
+async (req: NextApiRequest, res: NextApiResponse) => {
   if(req.method === 'POST') {
     const buf = await buffer(req);
     const reqSignature = req.headers['stripe-signature'];

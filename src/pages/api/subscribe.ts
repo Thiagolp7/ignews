@@ -12,7 +12,7 @@ type User = {
   }
 }
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getSession({ req })
   
   const user = await fauna.query<User>(
