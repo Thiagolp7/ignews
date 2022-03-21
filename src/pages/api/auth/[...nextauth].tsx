@@ -17,9 +17,50 @@ export default NextAuth({
       }
     }),
   ],
+  // Pegars Subscription pelo user email e que está ativa
   callbacks: {
-    async signIn({ user, account, profile, email, credentials }) {
+    async session({ session, user, token}){
+      const userEmail = session.user.email
       
+      try {
+        const userActiveSubscription = await fauna.query(
+          q.Get(
+            q.Intersection([
+              q.Match(
+                q.Index('subscription_by_user_ref'),
+                q.Select(
+                  'ref',
+                  q.Get(
+                    q.Match(
+                      q.Index('user_by_email'),
+                      q.Casefold(userEmail)
+                    )
+                  )
+                )
+              )
+            ,
+              q.Match(
+                q.Index('subscription_by_status'),
+                'active'
+              )
+            ])
+          )
+        )
+          
+
+        return {
+          ...session,
+          activeSubscription: userActiveSubscription
+        }
+      } catch(err) {
+        console.log(err.message)
+        return {
+          ...session,
+          activeSubscription: null
+        }
+      }
+    },
+    async signIn({ user, account, profile, email, credentials }) {
       const userEmail = user.email
       
       try {
